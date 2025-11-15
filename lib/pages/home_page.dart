@@ -133,39 +133,29 @@ class HomePage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            Container(
-              height: 100,
-              decoration: BoxDecoration(
-                color: Colors.amber[400],
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.image, size: 50, color: Colors.white),
-                  SizedBox(width: 16),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Get 50% OFF", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white)),
-                      Text("On first 03 order", style: TextStyle(color: Colors.white)),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 20),
-            Text("Recommended", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.grey[900])),
+            Text("Recommended",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.grey[900])),
             const SizedBox(height: 12),
             SizedBox(
               height: 180,
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: const [
-                  ProductCard(title: "Tilapia", price: "₱000 /kg"),
-                  ProductCard(title: "Liempo", price: "₱000 /kg"),
-                  ProductCard(title: "Kasim", price: "₱000 /kg"),
+                  ProductCard(
+                    title: "Tilapia",
+                    price: "₱000 /kg",
+                    imagePath: "assets/img/tilapia.jpg",
+                  ),
+                  ProductCard(
+                    title: "Liempo",
+                    price: "₱000 /kg",
+                    imagePath: "assets/img/liempo.png",
+                  ),
+                  ProductCard(
+                    title: "Kasim",
+                    price: "₱000 /kg",
+                    imagePath: "assets/img/kasim.jpg",
+                  ),
                 ],
               ),
             ),
@@ -179,8 +169,14 @@ class HomePage extends StatelessWidget {
 class ProductCard extends StatelessWidget {
   final String title;
   final String price;
+  final String imagePath;
 
-  const ProductCard({super.key, required this.title, required this.price});
+  const ProductCard({
+    super.key,
+    required this.title,
+    required this.price,
+    required this.imagePath,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -195,13 +191,14 @@ class ProductCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            height: 80,
-            decoration: BoxDecoration(
-              color: Colors.grey[300],
-              borderRadius: BorderRadius.circular(12),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Image.asset(
+              imagePath,
+              height: 80,
+              width: double.infinity,
+              fit: BoxFit.cover,
             ),
-            child: const Center(child: Icon(Icons.image, size: 40, color: Colors.white)),
           ),
           const SizedBox(height: 8),
           Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),

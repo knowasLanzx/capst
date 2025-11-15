@@ -13,7 +13,7 @@ class _CategoryPageState extends State<CategoryPage> {
 
   @override
   Widget build(BuildContext context) {
-    // If user selected a category → show CategoryListPage
+    // When user selects a category
     if (selectedCategory != null) {
       return CategoryListPage(
         category: selectedCategory!,
@@ -21,7 +21,7 @@ class _CategoryPageState extends State<CategoryPage> {
       );
     }
 
-    // Default view → Category Grid
+    // Default category grid
     return SafeArea(
       child: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -67,9 +67,10 @@ class _CategoryPageState extends State<CategoryPage> {
                 ],
               ),
             ),
+
             const SizedBox(height: 20),
 
-            // Category Grid
+            // Category Grid with IMAGES
             GridView.count(
               crossAxisCount: 2,
               crossAxisSpacing: 12,
@@ -77,12 +78,36 @@ class _CategoryPageState extends State<CategoryPage> {
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               children: [
-                CategoryCard(title: "Fishes", onTap: () => setState(() => selectedCategory = "Fishes")),
-                CategoryCard(title: "Meats", onTap: () => setState(() => selectedCategory = "Meats")),
-                CategoryCard(title: "Vegetables", onTap: () => setState(() => selectedCategory = "Vegetables")),
-                CategoryCard(title: "Fruits", onTap: () => setState(() => selectedCategory = "Fruits")),
-                CategoryCard(title: "Drinks", onTap: () => setState(() => selectedCategory = "Drinks")),
-                CategoryCard(title: "Snacks", onTap: () => setState(() => selectedCategory = "Snacks")),
+                CategoryCard(
+                  title: "Fishes",
+                  imagePath: "assets/img/categories/fishesh.jpg",
+                  onTap: () => setState(() => selectedCategory = "Fishes"),
+                ),
+                CategoryCard(
+                  title: "Meats",
+                  imagePath: "assets/img/categories/meats.jpg",
+                  onTap: () => setState(() => selectedCategory = "Meats"),
+                ),
+                CategoryCard(
+                  title: "Vegetables",
+                  imagePath: "assets/img/categories/vege.jpg",
+                  onTap: () => setState(() => selectedCategory = "Vegetables"),
+                ),
+                CategoryCard(
+                  title: "Fruits",
+                  imagePath: "assets/img/categories/fruits.jpg",
+                  onTap: () => setState(() => selectedCategory = "Fruits"),
+                ),
+                CategoryCard(
+                  title: "Services",
+                  imagePath: "assets/img/categories/services.jpg",
+                  onTap: () => setState(() => selectedCategory = "Services"),
+                ),
+                CategoryCard(
+                  title: "Snacks",
+                  imagePath: "assets/img/categories/snacks.png",
+                  onTap: () => setState(() => selectedCategory = "Snacks"),
+                ),
               ],
             ),
           ],
@@ -94,9 +119,15 @@ class _CategoryPageState extends State<CategoryPage> {
 
 class CategoryCard extends StatelessWidget {
   final String title;
+  final String imagePath;
   final VoidCallback? onTap;
 
-  const CategoryCard({super.key, required this.title, this.onTap});
+  const CategoryCard({
+    super.key,
+    required this.title,
+    required this.imagePath,
+    this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -118,16 +149,24 @@ class CategoryCard extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            // Category Image
             Container(
               height: 70,
               width: 70,
               decoration: BoxDecoration(
-                color: Colors.grey[200],
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Icon(Icons.image, color: Colors.grey, size: 40),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.asset(
+                  imagePath,
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
+
             const SizedBox(height: 10),
+
             Text(
               title,
               style: const TextStyle(
@@ -136,6 +175,7 @@ class CategoryCard extends StatelessWidget {
                 color: Colors.black87,
               ),
             ),
+
             const Text(
               "Detail",
               style: TextStyle(fontSize: 12, color: Colors.grey),
